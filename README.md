@@ -1,1 +1,1 @@
-# clone_firefox
+# CloneFirefox
