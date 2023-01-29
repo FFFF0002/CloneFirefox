@@ -1,4 +1,3 @@
-
 // ==UserScript==
 // @name         YTB
 // @namespace    http://tampermonkey.net/
@@ -16,6 +15,7 @@ let vid =['vBLhotBVcV0','HFBqTuB_nKM']
 let start=0
 let end=0
 let sleep=1000
+let loop=0
 const check=()=>{
 var addr=window.location.search
 try{
@@ -24,9 +24,9 @@ addr=window.location.search.split('?')[1].split('&').map(i=>i.split('=')[1])[0]
 
 }
 if(addr != vid[1]){
-    if(sleep==5000){
-        sleep=1000
-    }
+  clearInterval(loop)
+  sleep = 1000
+  loop=setInterval(check,sleep)
  if(end==0){
      end=512
  }else if(start < end){
@@ -35,14 +35,15 @@ if(addr != vid[1]){
      window.location.replace(`https://www.youtube.com/watch?v=${vid[1]}`)
  }
 }else{
-  if(sleep==1000){
-      sleep=5000
-  }
+  clearInterval(loop)
+  sleep = 5000
+  loop=setInterval(check,sleep)
 }
 console.clear()
 console.log(addr,start,end,sleep)
 
 }
 
-setInterval(check,sleep)
+loop=setInterval(check,sleep)
+
 })();
